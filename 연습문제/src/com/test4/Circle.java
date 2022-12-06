@@ -4,7 +4,7 @@ public class Circle extends Shape implements Movable {
 
 	// 생성자
 	public Circle() {
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stubjkjkjkkjjk
 	}
 	
 	public Circle(int radius, int x, int y) {
