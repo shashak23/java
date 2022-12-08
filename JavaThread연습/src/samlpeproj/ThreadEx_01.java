@@ -8,11 +8,12 @@ class ThreadEx_01_2 implements Runnable {
 		for(int i=0; i<5; i++) {
 	    	  System.out.println(Thread.currentThread());
 		}	
-	}   //run을 사용해서 비슷하게 만들지만 인터페이스를 구현하는 방식이다.
+	}  
+	//run을 사용해서 비슷하게 만들지만 인터페이스를 구현하는 방식이다.
 	//하지만 사싱 override run이런거 못써요
-	//getName같은 메소드를 이용하려면 current스래드를 발견 
+	//getName같은 메소드를 이용하려면 Thread.currentThread()스래드를 발견 
 	//이 메소드를 실행한다는 것은 밑에 러너블이 호출됐따는 것은 실행이 됐다는 것인데
-	//그 실행의 역할을 하는 것이 currentThead이다.
+	//그 실행의 역할을 하는 것이 currentThead이다. 현재 실행 중인 스래드에 접근하게 해줌
 }
 
 //01_1클래스는 당연히 스래드임 why? IS-A관계에 있으니까(상속 중)
