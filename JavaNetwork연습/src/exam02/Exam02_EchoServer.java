@@ -1,9 +1,13 @@
 package exam02;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -14,14 +18,25 @@ import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
 public class Exam02_EchoServer extends Application {  //창을 만들거니까 어플리케이션 상속, 어플리케이션은 추상메소드이고, 이걸 오버라이드를 해야지 추상이 안됨
+//서버를 로컬변수로 줄 것인가? 필드로 줄것인가? 필드면 스타트라는 메서드 외부 
 
 	
 	//field
 	TextArea textarea; //인자 생성, 선언 //이거를 오버라이드 밑에 하면 지역변수가 되고 날라가요!
 	Button startBtn;
 	Button stopBtn;
+	Socket s;
+	ServerSocket server; //응?
 	
-	private void printMsg(String msg) {
+	PrintWriter pr;
+	BufferedReader br;
+	
+	
+	private ServerSocket server;
+	//만약 여기서 server에서 인자를 생성해서 하면 서버가 실행되자마자 접속이 되버리는 다른 상황!
+	
+	
+	private void printMsg(String msg) { //쓰레드 만들어서 
     Platform.runLater(()->{  //이렇게 해서 별도의 Thread가 따로 처리를 해줘용
     	textarea.appendText(msg +"\n");  //스레드가 처리하도록, 그래서 문자가 문제없이 나오도록
     }); 
@@ -53,6 +68,36 @@ public class Exam02_EchoServer extends Application {  //창을 만들거니까 �
 		    //이렇게 되면 안되니까
 		    //순차처리를 안하기 위해서 당연히 Thread를 사용해야해요.
 		    printMsg("서버가 시작되었어요!");
+		    try {
+			    server = new ServerSocket(5000);
+			    printMsg("클라이언트 접속대기중!!!");
+			    (new Thread(() -> {
+			    	try {
+						s = server.accept();
+						printMsg("클라이언트 접속성공!!!");
+						pr = new PrintWriter(s.getOutputStream());
+						br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+						
+						String msg = br.readLine();
+						printMsg("클라이언트의 메세지 : " + msg);
+						
+						pr.println(msg);
+						pr.flush();
+						
+;					} catch (Exception e1) {
+						
+						e1.printStackTrace();
+					}
+			    })).start(); // ->서버시작 버트을 받아서 실행이 되게끔 하는 코드
+			    
+				//server.accept(); //메세지가 안나오는 채로 홀드가 됨.
+			} catch (Exception e1) {
+				// TODO: handle exception
+				e1.printStackTrace();
+			}
+		    //ServerSocket server = new ServerSocket(5000);
+		    //서버 소켓을 스타트 안에서만 쓸거에요 근데 좋지 않다^^?
+		    
 		    //오버라이드를 해와야 러너블을 쓸 수 있는 건데
 		    //근데 그럼 코드가 너무 길어지니까 -> 축약해서 바로 위와 같이 씀
 		    //gui특성 때문에 이렇게 arrow function을 쓰는거임
@@ -94,7 +139,7 @@ public class Exam02_EchoServer extends Application {  //창을 만들거니까 �
 		primaryStage.setScene(scene); //창을 띄워요 
 
 		primaryStage.setTitle("Echo Server Program");
-		primaryStage.show();  //메인에 안 넣으면 빨간 밑줄, 복구하려면 premeter로! 괄호에 넣쟈 ! 
+		primaryStage.show();  //메인에 안 넣으면 빨간 밑줄, 복구하려면 pre meter로! 괄호에 넣쟈 ! 
 		
 	} //해당 쓰레드가 바로 위를 호출해요~ 
 	
