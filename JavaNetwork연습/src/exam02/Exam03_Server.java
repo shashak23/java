@@ -9,7 +9,6 @@ import java.net.Socket;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -19,46 +18,41 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
-public class Exam02_EchoServer extends Application {
-
-	TextArea textarea;
+public class Exam03_Server extends Application {
+	
 	Button startBtn;
 	Button stopBtn;
 	ServerSocket server;
 	Socket s;
+	TextArea textarea;
 	
 	PrintWriter pr;
-	BufferedReader br;
-	
+	BufferedReader br; //인자 생성, import 하기 
+	Thread Runnable;
+		
 	private void printMsg(String msg) {
-		Platform.runLater(() -> {
-			textarea.appendText(msg + "\n");
-		});
-	}
+		Platform.runLater(()-> {  //new Runnable을 생성하는 경우도 있지만 교수님은 안하심
+		    textarea.appendText(msg + "\n");	
+		
+		});  //멀티스레드를 가져오기 위한 코드? -> 수요일에 확인하기 
+		}
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// 창의 화면 구성을 하게 되요!
-		// Layout
+		
 		BorderPane root = new BorderPane();
 		root.setPrefSize(700,500); // Layout의 가로세로 크기
 		
 		textarea = new TextArea();
 		root.setCenter(textarea);
 		
-		startBtn = new Button("서버시작!!");
-		startBtn.setPrefSize(150, 40);
-		// 버튼을 클릭했을때(클릭은 ActionEvent) 이벤트 처리가 나와요!
-		// 이벤트 처리는 Listener객체(Handler객체)가 담당 => delegation model
-		// 
-		startBtn.setOnAction(e -> {			
-			// blocking method!! 실행되는 동안 수행이 잠시 중지되요!
-			// 아하 이렇게 하면 안되요!
-			// 순차처리를 안하기 위해서 당연히 Thread를 사용해야 되요!	
+		startBtn = new Button("서버시작!"); //시작 버튼, 글귀
+		startBtn.setPrefSize(150, 40);  //시작버튼 사이즈
+		startBtn.setOnAction(e -> { //blocking 메소드, 잠시 중지 
 			printMsg("서버가 시작되었어요!");
 			try {
-				server = new ServerSocket(5000);
-				printMsg("클라이언트 접속대기중!!!");
+				server = new ServerSocket(5000);  //서버 인자 생성하고(주소값)
+				printMsg("클라이언트 접속대기중!");  // 클라이언트 대기 상태 안내
 				
 				(new Thread(() -> {
 					try { //얘는 반복적으로 계속 받아야해ㅇ
@@ -87,15 +81,16 @@ public class Exam02_EchoServer extends Application {
 				
 				
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
+			
 				e1.printStackTrace();
 			}
 			
 		});
-				
-		stopBtn = new Button("서버중지!!");
+		
+	
+		stopBtn = new Button("서버중지!");
 		stopBtn.setPrefSize(150, 40);
-		stopBtn.setOnAction(null);
+		stopBtn.setOnAction(null); //stop버튼 완료 
 		
 		FlowPane flowPane = new FlowPane();
 		flowPane.setPadding(new Insets(10,10,10,10));
@@ -111,12 +106,14 @@ public class Exam02_EchoServer extends Application {
 		
 		primaryStage.setScene(scene);
 		
-		primaryStage.setTitle("Echo Server Program");
+		primaryStage.setTitle("Echo Client Program");
 		primaryStage.show();
+		
 	}
 	
 	public static void main(String[] args) {
-		launch();   // GUI Thread가 생성되서 우리 창이 실행되요!
+		launch();
 	}
 
 }
+
