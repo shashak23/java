@@ -106,7 +106,7 @@ public class Exam03_Server extends Application {
 		
 		primaryStage.setScene(scene);
 		
-		primaryStage.setTitle("Echo Client Program");
+		primaryStage.setTitle("Echo Server Program");
 		primaryStage.show();
 		
 	}

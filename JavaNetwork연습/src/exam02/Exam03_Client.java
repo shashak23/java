@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -48,7 +49,8 @@ public class Exam03_Client extends Application {
 			//socket 값, 텍스트필드 넣기 
 			try {
 				s = new Socket("127.0.0.1", 5000);
-				printMsg("서버에 연결이 성공했습니다."); //클라이언트에서 여기서부터 보임
+				System.out.println("ddddddddddd");
+				printMsg("서버에 연결이555 성공했습니다."); //클라이언트에서 여기서부터 보임
 				textField.setDisable(false);
 				pr = new PrintWriter(s.getOutputStream());
 				br = new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -112,9 +114,10 @@ public class Exam03_Client extends Application {
 		
 		
 	}
-	private void printMsg(String string) {
-        
-		
+	private void printMsg(String msg) { //히면창에 떠여!!
+		Platform.runLater(() -> {
+			textarea.appendText(msg + "\n");
+		});
 	}
 
 	public static void main(String[] args) {
