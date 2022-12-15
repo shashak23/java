@@ -1,8 +1,5 @@
 package exam04;
 
-import java.awt.Button;
-import java.awt.Insets;
-import java.awt.TextArea;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,7 +12,10 @@ import java.util.HashMap;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
