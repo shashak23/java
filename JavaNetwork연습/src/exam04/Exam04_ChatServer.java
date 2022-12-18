@@ -1,5 +1,8 @@
 package exam04;
 
+import java.awt.Button;
+import java.awt.Insets;
+import java.awt.TextArea;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,10 +15,7 @@ import java.util.HashMap;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
@@ -101,13 +101,14 @@ public class Exam04_ChatServer extends Application {
 	Button stopBtn;
 	
 	Shared shared;   // 공유객체를 필드로 설정해요!
-	ServerSocket server;
+W
 	
 	private void printMsg(String msg) {
 		
 		Platform.runLater(() -> {
 			textArea.appendText(msg + "\n");
 		}); //UI thread를 이용해서 출력할 수 있도록 
+		
 		
 	}
 	

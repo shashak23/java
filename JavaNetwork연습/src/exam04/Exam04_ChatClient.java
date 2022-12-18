@@ -1,5 +1,9 @@
 package exam04;
 
+import java.awt.Button;
+import java.awt.Insets;
+import java.awt.TextArea;
+import java.awt.TextField;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,19 +11,16 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import javafx.application.Application;
+import javax.management.Notification;
+import javax.swing.border.Border;
+
 import javafx.application.Platform;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
-public class Exam04_ChatClient extends Application {
+public class Exam04_ChatClient extends Notification {
 	
 	TextArea textArea;
 	TextField ipTextField;
@@ -43,7 +44,7 @@ public class Exam04_ChatClient extends Application {
 	
 		
 		//보더펜 생성
-		BorderPane root = new BorderPane();
+		Border root = new Border();
 		root.setPrefSize(700, 500);
 		
 		textArea = new TextArea();
@@ -51,7 +52,7 @@ public class Exam04_ChatClient extends Application {
 		
 		FlowPane upFlowPane = new FlowPane();
 		upFlowPane.setPadding(new Insets(10,10,10,10));
-		upFlowPane.setColumnHalignment(HPos.CENTER);
+		upFlowPane.setColumnHalignmeknt(HPos.CENTER);
 		upFlowPane.setPrefSize(700, 40);
 		upFlowPane.setHgap(10);
 		
@@ -91,7 +92,8 @@ public class Exam04_ChatClient extends Application {
 				
 				e1.printStackTrace();
 			} //IP와 포트번호를 이용해서 접속을 시도하기~! 오예!, 익셉션 처리가 강조됨 // 자동완성기능을 이용합시다 ?
-
+			
+			
 			
 		});   
 		
