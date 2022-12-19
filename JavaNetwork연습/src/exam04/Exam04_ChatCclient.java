@@ -1,12 +1,11 @@
 package exam04;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.UnknownHostException; // 언노운호스트입섹션은 net으로 연결
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -19,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
+
 
 public class Exam04_ChatCclient extends Application {
 

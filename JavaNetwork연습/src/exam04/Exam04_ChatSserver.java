@@ -92,7 +92,7 @@ class MyyRunnable implements Runnable {
 
 
 
-public class Exam04_ChasSserver extends Application {
+public class Exam04_ChatSserver extends Application {
 	Button startBtn;
 	Button stopBtn;
 	TextArea textArea;
