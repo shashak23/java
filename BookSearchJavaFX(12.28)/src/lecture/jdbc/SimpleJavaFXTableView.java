@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import lecture.jdbc.vo.BookVO;
 
 public class SimpleJavaFXTableView extends Application {
-	//textarea
+	// textarea
 	// tableview 안에 데이터를 표현할 때 vo를 가져다가 한 줄 식 표현하게
 	// 그때 어떤 vo를 사용할 지 class이름을 
 	TableView<BookVO> tableView;

@@ -93,10 +93,7 @@ public class BbookSearchJavaFX extends Application {
 			}
 			
 			// 6. sql 문법 넣고
-			
-			
-			
-			
+
 			// 7.결과처리!
 			
 			// 8. 리스트 보여주기
@@ -154,6 +151,21 @@ public class BbookSearchJavaFX extends Application {
 				new TableColumn<>("ISBN");  // ISBN은 화면에 보여지는 컬럼의 이름
 		isbnColumn.setMinWidth(150);
 		isbnColumn.setCellValueFactory(new PropertyValueFactory<>("bisbn"));
+
+		TableColumn<BookVO, String> titleColumn = 
+				new TableColumn<>("ISBN");  // ISBN은 화면에 보여지는 컬럼의 이름
+		titleColumn.setMinWidth(150);
+		titleColumn.setCellValueFactory(new PropertyValueFactory<>("bisbn"));
+
+		TableColumn<BookVO, String> authorColumn = 
+				new TableColumn<>("ISBN");  // ISBN은 화면에 보여지는 컬럼의 이름
+		authorColumn.setMinWidth(150);
+		authorColumn.setCellValueFactory(new PropertyValueFactory<>("bisbn"));
+
+		TableColumn<BookVO, Integer> PriceColumn = 
+				new TableColumn<>("ISBN");  // ISBN은 화면에 보여지는 컬럼의 이름
+		PriceColumn.setMinWidth(150);
+		PriceColumn.setCellValueFactory(new PropertyValueFactory<>("bisbn"));
 
 		
 		root.setCenter(tableView);
