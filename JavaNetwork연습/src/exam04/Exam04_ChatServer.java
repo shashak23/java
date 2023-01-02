@@ -207,9 +207,7 @@ W
 		
 		// 이제 만들어진 장면을 window에 넣어요!
 		primaryStage.setScene(scene); //stage에 scene을 넣어요 
-		
 		primaryStage.setTitle("Echo Server Program");
-		
 		primaryStage.show();		
 	}
 

@@ -12,11 +12,11 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import javax.management.Notification;
-import javax.swing.border.Border;
 
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
@@ -44,7 +44,7 @@ public class Exam04_ChatClient extends Notification {
 	
 		
 		//보더펜 생성
-		Border root = new Border();
+		BorderPane root = new BorderPane();
 		root.setPrefSize(700, 500);
 		
 		textArea = new TextArea();

@@ -27,7 +27,6 @@ public class SimpleJavaFXTableView extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
 
 		// 1. layout 설정
 		BorderPane root = new BorderPane();
@@ -93,7 +92,7 @@ public class SimpleJavaFXTableView extends Application {
 		tableView.getColumns().addAll(isbnColumn, titleColumn, authorColumn, PriceColumn);
 		
 		//table 세팅하기 결과에 리스트가 나오도록
-		tableView.setTitle(list);
+		tableView.setItems(list);
 				
 		
 		root.setCenter(textArea);

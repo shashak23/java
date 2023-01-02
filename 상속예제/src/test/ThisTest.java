@@ -5,7 +5,7 @@ public class ThisTest extends Object {
 	//생성자
 	//default 생성자는 항상 써주세요.
 	public ThisTest() {
-		this();                 //super대신에 this(); = 현재 클래스에 다른 생성자를 호출할 때 씀 3)this();
+		super();                 //super대신에 this(); = 현재 클래스에 다른 생성자를 호출할 때 씀 3)this();
 		                        //그래서 밑에 생성자를 보게 됩니다. 내가 가지고 있는 또 다른 생성자를 보자~
 	}
 	

@@ -30,7 +30,7 @@ public class Student extends Person {                //person을 이용해서 st
 	                                                 //student class를 보고 싶어도 person class가 있어야한다. 기입됨.                
 
 	// 1. 생성자  // 리턴타입이 없으니까 void가 안되서 코드오류가 되니까 생성자에서는 상속이 되지 못한다.
-	public Students() {
+	public Student() {
 	//상위 클래스의 constructors 호출 ★★★★  => super();
 		//생성자의 첫번째(바로 밑)는 무조건 super가 나와야 해요. -> 내가 안넣으면 자동으로 만들어져요.
 		//super는 상위 생성자를 호출하는 코드.

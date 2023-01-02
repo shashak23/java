@@ -15,10 +15,10 @@ public class ExceptionTest {
 //		a.name = "홍길동";                 
 //		System.out.println("여기는 출력되나요?");
 		try {
-			int result = 10 / 0;
+			int result1 = 10 / 0;
 		
-		} catch(NullPointException e) {               //내가 잡을 객체가 null타입의 객체니? 라고 위를 본다. 
-			System.out.println("널포인트 익셉션!!");      //원래는 예외상황처리코드를 써야하는데 쓸 게 없으니까 걍 한글쓸게요
+		//} catch(NullPointException e) {               //내가 잡을 객체가 null타입의 객체니? 라고 위를 본다. 
+			//System.out.println("널포인트 익셉션!!");      //원래는 예외상황처리코드를 써야하는데 쓸 게 없으니까 걍 한글쓸게요
 			
 		} catch(Exception e) {
 			System.out.println("수학연산이 잘못되었어요!");  //try에서 발생된 게 어떤 것이든지 exception에서 처리하겠다
