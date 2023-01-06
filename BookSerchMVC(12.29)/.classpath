@@ -49,6 +49,6 @@
 	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-11.0.17/dbcp/commons-dbcp2-2.9.0.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-11.0.17/dbcp/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-11.0.17/dbcp/commons-pool2-2.11.1.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-11.0.17/mySQL/mysql-connector-j-8.0.31.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-11.0.17/mysql/mysql-connector-j-8.0.31.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
