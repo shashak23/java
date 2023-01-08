@@ -23,7 +23,7 @@ public class Circle extends Shape implements Movable {  //Shape를 이용해 확
 	@Override
 	public void move(int x, int y) {    //x와 y의 자표값을 변경하는 거에요.
 	                                    //x,y 좌표값을 가지는 것을 댕기면 되요?
-		Point p = getpoint();           //내 상위 클래스의 getter가 존재하는데 그걸 가져오는 거에요.
+		Point p = getPoint();           //내 상위 클래스의 getter가 존재하는데 그걸 가져오는 거에요.
 		p.setX(p.getX() + x + 1);       //x,y 좌표에서 1만큼 더 이동해요
 		                                //더 해주는 건데 원이다보니까 x값을 1만큼 더 이동하는 거에요.
 		                                //포인트 객체에 대한 값을 변경
@@ -61,10 +61,10 @@ public class Circle extends Shape implements Movable {  //Shape를 이용해 확
 	@Override   //하위클래스에서 가져오는 방법
 	public String toString() {  //인스턴스를 파생시킨 클래스 정보안에
 		
-		return this.getClass().getSimpleName() + "    ";   
+		return this.getClass().getSimpleName() + "    "
 		//getSimpleName은 클래스 이름만 가져와요.
 		//이렇게 정해진 코드를 기억해두세요~~ 다 알아두셔야 합니다~~ 얏호 
-		   + radius + "   ";
+		   + radius + "   "
 		   + getPoint().getX() + "    "
 		   + getPoint().getY() + "    "
 		   + getArea() + "   "

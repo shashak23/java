@@ -9,8 +9,8 @@ public class ShapeTest {
 		//Shape 으로 해야 모든 도형이 들어오겠죠? Shape으로 타입을 때려 넣어야해요.
 		list.add(new Rectangle(4, 7, 4));  //순서가 width - x - y 
 		list.add(new Rectangle(5, 4, 6));
-		list.add(new Circle(6, 6, 7));
-		list.add(new Circle(7, 8, 3));
+		//list.add(new Circle(6, 7, 6));
+		//list.add(new Circle(9, 10, 9));
 		
 		//for문을 사용하여 정리 -> result가 찍히도록 만들기
 		//상위 클래스 또는 하위 클래스에서 override하는 방법 중 '하위(Circle, Rectangle)'사용

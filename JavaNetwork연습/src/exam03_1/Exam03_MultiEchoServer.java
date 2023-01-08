@@ -43,8 +43,7 @@ class MyRunnable implements Runnable{   //여기서 요점은 상속으로는 �
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	@Override
 	public void run() {
 		
@@ -65,13 +64,12 @@ public class Exam03_MultiEchoServer extends Application{
 	TextArea textArea; //필드로 잡을지 지역변수로 잡을지 걱정 -> 대부분 필드로 잡는게 편해요. 그래야 다른 곳에서도 많이 제어가 되쥬
 	Button startBtn;
 	Button stopBtn;
-	
 	ServerSocket server;
 	
 	private void printMsg(String msg) {
-
-		textArea.appendText(msg + "\n"); //UI Tread 이용해서 출력할 수 있도록 
-
+		Platform.runLater(() -> {
+    		textArea.appendText(msg + "\n"); //UI Tread 이용해서 출력할 수 있도록 
+		});
 	}
 	
 	
@@ -83,10 +81,13 @@ public class Exam03_MultiEchoServer extends Application{
 		//BorderPane(동서남북으로 화면을 5분할하는) layout 이용할거에요
 		BorderPane root = new BorderPane(); //보더펜말고 다른 이름 써도 됩니당
 		//여기까지는 창만 있고 내용이 없는 상태 
-		
 		//사이즈 정하기
-		root.setPrefSize(700, 500); //가로세로 사이즈 
+		root.setPrefSize(700, 500); //가로세로 사이즈
 		
+		//실제 화면 구성
+	    textArea = new TextArea(); // 선언을 뺴세요 맨 앞에 TextArea! 
+		root.setCenter(textArea); //text area에 넣어, 필드로 올리는 이유: 살아있는 동안 다른 void나 이런데에서 쓸 수가 있어서
+				
 		startBtn = new Button("서버기동");
 		startBtn.setPrefSize(150, 40);
 		//버튼의 이벤트 처리코드를 일단 먼저 작성
@@ -103,7 +104,7 @@ public class Exam03_MultiEchoServer extends Application{
 			//}
 		//}); //리스너객체가 들어가야해요, 근데 사실은 얘가 인터페이스입니다
 		startBtn.setOnAction(e -> {
-			(new Thread(() -> {
+			new Thread(() -> {
 				//액션이 생기면 해야하는 내용을 작성하자, accept만 여기서 잡아도 되지만 서버소켓도 여기서 잡읍시다
 				try {
 					server = new ServerSocket(7777); //7777으로 임시로 했지만 이미 다른 사람이 썼다면 에러로 떠요, try/catch로 예외상황을 해둬야해요
@@ -129,7 +130,7 @@ public class Exam03_MultiEchoServer extends Application{
 				}//서버가 원래 다 했던 일을 클랑언트한테 하나씩 던져주고 스레드를 생성, 러너블을 생성, 그 안에 소켓을 짜잔.
 				
 				
-			})).start();  //쨋든 레퍼런스인 t가 있어야지 축약까지 가능한데, 굳이 만들필요는 없어요
+			}).start();  //쨋든 레퍼런스인 t가 있어야지 축약까지 가능한데, 굳이 만들필요는 없어요
 			//왜 이렇게 쓸 수 있는지 "이해를 하세요"
 
 			//코드작성하고 읽기가 쉬워짐
@@ -145,11 +146,7 @@ public class Exam03_MultiEchoServer extends Application{
 		stopBtn.setPrefSize(150, 40);
 		stopBtn.setOnAction(e -> {
 		 // 이벤트 처리 Lambda가 나와요.
-		 
-		 
-			
-	
-	    
+
 	    });
 		
 		//보더펜의 아래부분에 버튼을 부착시키고 싶어요~!
@@ -170,10 +167,6 @@ public class Exam03_MultiEchoServer extends Application{
 		
 		//판자를 보더 아랫부분에 붙여요
 		root.setBottom(flowPane); // 전체구성 끝, 
-		
-		//실제 화면 구성
-	    textArea = new TextArea(); // 선언을 뺴세요 맨 앞에 TextArea! 
-		root.setCenter(textArea); //text area에 넣어, 필드로 올리는 이유: 살아있는 동안 다른 void나 이런데에서 쓸 수가 있어서
 		
 		//이런 레이아웃을 이용해서 내가 보여주고 싶은 장면(scene)을 만듦
 		Scene scene = new Scene(root); //scene은 장면임

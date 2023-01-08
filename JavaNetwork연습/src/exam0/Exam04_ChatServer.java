@@ -1,8 +1,6 @@
-package exam04;
+package exam0;
 
-import java.awt.Button;
-import java.awt.Insets;
-import java.awt.TextArea;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,7 +13,10 @@ import java.util.HashMap;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
@@ -44,8 +45,8 @@ class Shared {
 		// 전달받은 문자열을 모든 클라이언트 PrinterWriter를 통해
 		// 데이터를 내 보내요! --> 동기화를 시키는 거에요 
 		for(Socket s: list) {
-			(map.get(s)).println(msg); //해쉬맵에서 하나씩 메세지 뽑아내기
-			(map.get(s)).flush(); //하나씩 빼서 하나씩 보내기!
+			map.get(s).println(msg); //해쉬맵에서 하나씩 메세지 뽑아내기
+			map.get(s).flush(); //하나씩 빼서 하나씩 보내기!
 		}
 	}
 }
@@ -99,9 +100,10 @@ public class Exam04_ChatServer extends Application {
 	TextArea textArea;
 	Button startBtn;
 	Button stopBtn;
+	ServerSocket server;
 	
 	Shared shared;   // 공유객체를 필드로 설정해요!
-W
+
 	
 	private void printMsg(String msg) {
 		
@@ -140,7 +142,7 @@ W
 			shared = new Shared();
 			
 			// 익명 class의 Thread생성 및 실행
-			(new Thread(() -> {
+			new Thread(() -> {
 				// 서버소켓을 하나 생성해야 해요! 클라이언트의 접속을 기다리는 놈이죠!!
 				try {
 					// port가 다른 프로그램에서 사용되고 있는 중일 수 있기때문에
@@ -172,7 +174,7 @@ W
 					
 					e1.printStackTrace();
 				}
-			})).start();
+			}).start();
 			
 		});
 		

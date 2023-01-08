@@ -1,4 +1,4 @@
-package exam02;
+package exam04_1;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
-public class Exam02_EchoClient extends Application {
+public class Exam03_EchoClient extends Application {
 
 	TextArea textarea;
 	Button connBtn;

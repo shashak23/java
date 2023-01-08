@@ -5,4 +5,3 @@ public interface Movable {         //인터페이스임
 	}
 	
 
-}

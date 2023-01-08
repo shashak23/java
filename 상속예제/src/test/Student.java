@@ -6,7 +6,7 @@ package test;
 // 3. 왜? Student를 실행해야하니까
 // 없으면? => Error 입니다.
 // 있으면? = JVM에 의해 호출 됨. 메인은 메소드고 메소드를 사용하려면 객체가 있어야해. public static main void 가 고정으로 있어야함.
-// 예외. 메소드가 없이도 호출되려면 스테틱을 쓴다. jvm에 의해서 바로 실행이 된다.
+// 예외. 메소드가 없이도 호출되려면 스테틱을 쓴다. JV M 에 의해서 바로 실행이 된다.
 // 비로소 method가 호출됐다면 stack에 메인메소드를 위한 공간을 할당함.
 
 // 내가 student라는 클래스를 이용하니까 클래스에 대한 정보가 메소드 area에 올라가죠
@@ -30,7 +30,7 @@ public class Student extends Person {                //person을 이용해서 st
 	                                                 //student class를 보고 싶어도 person class가 있어야한다. 기입됨.                
 
 	// 1. 생성자  // 리턴타입이 없으니까 void가 안되서 코드오류가 되니까 생성자에서는 상속이 되지 못한다.
-	public Students() {
+	public Student() {
 	//상위 클래스의 constructors 호출 ★★★★  => super();
 		//생성자의 첫번째(바로 밑)는 무조건 super가 나와야 해요. -> 내가 안넣으면 자동으로 만들어져요.
 		//super는 상위 생성자를 호출하는 코드.

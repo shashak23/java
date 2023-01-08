@@ -40,7 +40,7 @@ public class Rectangle extends Shape implements Movable{
 	}
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + "   ";
+		return this.getClass().getSimpleName() + "   "
 		   + width + "   "
 		   + getPoint().getX() + "    "
 		   + getPoint().getY() + "    "

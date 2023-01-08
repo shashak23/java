@@ -66,7 +66,7 @@ class ThreadEx_12_1 implements Runnable {
 }
 
 //두 개의 스래드를 줄게요
-public class ThreadeEX_12 {
+public class ThreadEX_12 {
 	public static void main(String[] args) {
 		ThreadEx_12_1 r = new ThreadEx_12_1();
 		
@@ -78,4 +78,4 @@ public class ThreadeEX_12 {
 		}
 	}
 
-}
+
