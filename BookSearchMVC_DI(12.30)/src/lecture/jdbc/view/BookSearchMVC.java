@@ -1,16 +1,6 @@
-package lecture.jdbc;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import javax.sql.DataSource;
-
-import org.apache.commons.dbcp2.BasicDataSource;
+package lecture.jdbc.view;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -24,35 +14,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
+import lecture.jdbc.controller.BookSearchByKeywordController;
+import lecture.jdbc.controller.DeleteByISBNController;
 import lecture.jdbc.vo.BookVO;
 
-public class BookSearchJavaFXConnectionPool extends Application {
+public class BookSearchMVC extends Application{
 
-	private static BasicDataSource basicDS;
-	
-	// main이 호출되기 전에 특정 코드를 실행시키고 싶어요!
-	// 일반적으로 프로그램에서 사용하는 resource같은거 로딩할때 사용해요!
-	static {
-		// Connection Pool을 만들꺼예요!
-		basicDS = new BasicDataSource();
-		basicDS.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		basicDS.setUrl("jdbc:mysql://127.0.0.1:3306/library?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true");
-		basicDS.setUsername("root");
-		basicDS.setPassword("test1234");
-		basicDS.setInitialSize(10);
-		basicDS.setMaxTotal(20);		
-	}
-	
 	TableView<BookVO> tableView;	
 	TextField textField;
 	Button deleteBtn;
-	
 	String deleteISBN;
 	String searchKeyword;
-	
-	public static DataSource getDataSource() {
-		return basicDS;
-	}
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -74,56 +46,19 @@ public class BookSearchJavaFXConnectionPool extends Application {
 		textField.setPrefSize(250, 40);
 		
 		textField.setOnAction(e -> {
-
-			DataSource ds = getDataSource();
-			// 2. Database 접속
-			Connection con = null;
+			// 이벤트 처리
+			// Controller를 이용해서 Service에 로직 실행 요청을 해야 해요!
+			// 먼저 Controller객체를 생성할꺼예요!
+			BookSearchByKeywordController controller = 
+					new BookSearchByKeywordController();
 			
-			try {
-				con = ds.getConnection();
-			} catch (SQLException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			} 
+			ObservableList<BookVO> list = 
+					controller.getResult(textField.getText());
 			
-			StringBuffer sql = new StringBuffer();
-			sql.append("SELECT bisbn, btitle, bauthor, bprice ");
-			sql.append("FROM book ");
-			sql.append("WHERE btitle like ?");
-			sql.append("ORDER BY bprice DESC");
-
-			try {
-				PreparedStatement pstmt = con.prepareStatement(sql.toString());
-				// 실행하기 전에.. ? 를 채워야 해요!
-				pstmt.setString(1, "%" + textField.getText() + "%");
-				
-				ResultSet rs = pstmt.executeQuery();
-				
-				ObservableList<BookVO> list = FXCollections.observableArrayList();
-				
-				// 5. 결과처리!
-				while(rs.next()) {
-					BookVO book = new BookVO(rs.getString("bisbn"),
-							rs.getString("btitle"),
-							rs.getString("bauthor"),
-							rs.getInt("bprice"));
-					list.add(book);
-				}
-				
-				tableView.setItems(list);
-				
-				// 6. 사용한 리소스 반납
-				rs.close();
-				pstmt.close();
-				con.close();
-				
-				searchKeyword = textField.getText();
-				
-				textField.clear();
-				
-			} catch (Exception e1) {
-				// TODO: handle exception
-			}
+			tableView.setItems(list);
+			
+			searchKeyword = textField.getText();
+			textField.clear();
 		});
 		
 		// 삭제버튼도 만들어서 붙여요!
@@ -131,82 +66,15 @@ public class BookSearchJavaFXConnectionPool extends Application {
 		deleteBtn.setPrefSize(150, 40);
 		deleteBtn.setDisable(true);
 		deleteBtn.setOnAction(e -> {
+			// 이벤트 처리
+			DeleteByISBNController controller = 
+					new DeleteByISBNController();
 			
-			DataSource ds = getDataSource();
-			Connection con = null;
+			ObservableList<BookVO> list = 
+					controller.getResult(deleteISBN, searchKeyword);
 			
-			try {
-				con = ds.getConnection();
-			} catch (SQLException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			} 
-			
-			StringBuffer sql = new StringBuffer();
-			sql.append("DELETE ");
-			sql.append("FROM book ");
-			sql.append("WHERE bisbn = ?");
-
-			try {
-				con.setAutoCommit(false);  // transaction 시작 
-				
-				PreparedStatement pstmt = con.prepareStatement(sql.toString());
-				// 실행하기 전에.. ? 를 채워야 해요!
-				pstmt.setString(1, deleteISBN);
-				
-				int count = pstmt.executeUpdate();
-				
-				// 5. 결과처리!
-				if(count == 1) {
-					con.commit();
-
-					StringBuffer sql1 = new StringBuffer();
-					sql1.append("SELECT bisbn, btitle, bauthor, bprice ");
-					sql1.append("FROM book ");
-					sql1.append("WHERE btitle like ?");
-					sql1.append("ORDER BY bprice DESC");
-
-					try {
-						PreparedStatement pstmt1 = con.prepareStatement(sql1.toString());
-						// 실행하기 전에.. ? 를 채워야 해요!
-						pstmt1.setString(1, "%" + searchKeyword + "%");
-						
-						ResultSet rs = pstmt1.executeQuery();
-						
-						ObservableList<BookVO> list = FXCollections.observableArrayList();
-						
-						// 5. 결과처리!
-						while(rs.next()) {
-							BookVO book = new BookVO(rs.getString("bisbn"),
-									rs.getString("btitle"),
-									rs.getString("bauthor"),
-									rs.getInt("bprice"));
-							list.add(book);
-						}
-						
-						tableView.setItems(list);
-						
-						// 6. 사용한 리소스 반납
-						rs.close();
-											
-					} catch (Exception e1) {
-						// TODO: handle exception
-					}
-					
-				} else {
-					con.rollback();
-				}
-				
-				// 6. 사용한 자원 반납
-				pstmt.close();
-				con.close();
-				
-			} catch (Exception e1) {
-				// TODO: handle exception
-			}
+			tableView.setItems(list);
 		});
-		
-		
 		
 		flowpane.getChildren().add(textField);
 		flowpane.getChildren().add(deleteBtn);
@@ -273,16 +141,10 @@ public class BookSearchJavaFXConnectionPool extends Application {
 		Scene scene = new Scene(root);
 		
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("BookSearch JavaFX Connection Pool");
+		primaryStage.setTitle("BookSearch JavaFX MVC");
 					
 		primaryStage.setOnCloseRequest(e -> {
-			
-			try {
-				((BasicDataSource)getDataSource()).close();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			// 이벤트 처리			
 		});
 		
 		primaryStage.show();

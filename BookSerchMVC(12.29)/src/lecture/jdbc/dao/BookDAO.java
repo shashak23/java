@@ -13,28 +13,32 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lecture.jdbc.vo.BookVO;
 
+//데이터베이스 처리 전문객체를 만들기위한 class
 
-//데이터베이스 처리 전문객체를 만들기위한 CLASS 
 public class BookDAO {
-private static BasicDataSource basicDS;
+
+	private static BasicDataSource basicDS;
 	
+	// main이 호출되기 전에 특정 코드를 실행시키고 싶어요!
+	// 일반적으로 프로그램에서 사용하는 resource같은거 로딩할때 사용해요!
 	static {
+		// Connection Pool을 만들꺼예요!
 		basicDS = new BasicDataSource();
 		basicDS.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		basicDS.setUrl("\"jdbc:mysql://127.0.0.1:3306/library?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true");
+		basicDS.setUrl("jdbc:mysql://127.0.0.1:3306/library?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true");
 		basicDS.setUsername("root");
 		basicDS.setPassword("test1234");
 		basicDS.setInitialSize(10);
-		basicDS.setMaxTotal(20);
+		basicDS.setMaxTotal(20);		
 	}
 	
 	public static DataSource getDataSource() {
 		return basicDS;
 	}
 	
-	
 	public ObservableList<BookVO> select(String text) {
-        DataSource ds = getDataSource();
+
+		DataSource ds = getDataSource();
 		
 		ObservableList<BookVO> list = null;
 		
@@ -80,7 +84,7 @@ private static BasicDataSource basicDS;
 			// TODO: handle exception
 		}
 		
-		return list; // 채운 결과를 리턴 
+		return list;
 	}
 
 	public int delete(String deleteISBN) {
@@ -125,6 +129,7 @@ private static BasicDataSource basicDS;
 		}
 		
 		return 0;
-		
 	}
+
+	
 }

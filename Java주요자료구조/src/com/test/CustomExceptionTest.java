@@ -8,8 +8,12 @@ public class CustomExceptionTest {
 	public static void main(String[] args)throws Exception {
 		System.out.println("시작");
 			throw new MyClass(); 
+<<<<<<< HEAD
 		//System.out.println("끝");   
 		//실행이 안됐다는 표시에요            
+=======
+		//System.out.println("끝");   //실행이 안됐다는 표시에요            
+>>>>>>> branch 'master' of https://github.com/shashak23/java.git
 		//이렇게 하면 시작과 끝이 그냥 나와요~
 		//객체를 만드는 것과 exception을 발생시키는 것은 다르다
 		//이런 exception 객체를 던져야 해요? -> 던지는 키워드가 던지는 용어 throw라고해서....

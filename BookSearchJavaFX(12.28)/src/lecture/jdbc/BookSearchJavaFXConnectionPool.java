@@ -127,8 +127,8 @@ private static BasicDataSource basicDS;
 					String id = "root";
 					String pw = "test1234";
 					
-					DataSourece ds = getDataSource();
-					con 
+					DataSource ds = getDataSource();
+					
 					
 					Connection con = null;
 					
