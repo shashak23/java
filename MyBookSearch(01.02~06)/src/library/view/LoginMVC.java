@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -33,7 +32,11 @@ public class LoginMVC extends Application {
 	Scene scene = null;
 	BorderPane root = null;
 	Stage primaryStage = null;
-	 MainMVC mainmvc = null;
+	MainMVC mainmvc = null;
+	UserInformationMVC uimvc;
+	BookLoan bl;
+	BookReturn br;
+	PointListMVC plmvc;
 
 	
 	public LoginMVC() {
@@ -94,7 +97,7 @@ public class LoginMVC extends Application {
 		idtextField = new TextField();
 		idtextField.setPrefSize(350, 70);
 		idtextField.setOnAction(e -> {
-			//입력하기 아이디 그대로 보이기 
+			//입력하기 아이디 그대로 보이기
 		});
 		 
 		pwtext = new Text("PW");
@@ -109,9 +112,8 @@ public class LoginMVC extends Application {
 		loginBtn = new Button("로그인");
 		loginBtn.setPrefSize(130, 70);
 		loginBtn.setOnAction(e -> {
-			// 버튼을 클릭하면 메인 페이지로 넘어가기
-			mainmvc = new MainMVC();
-			scene.setRoot(mainmvc.getRoot(primaryStage));
+			mainmvc = new MainMVC(scene, plmvc, br, bl, uimvc);
+			scene = new Scene(mainmvc.getRoot(primaryStage));
 			primaryStage.setScene(scene);
 		});
 		

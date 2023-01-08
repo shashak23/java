@@ -48,6 +48,7 @@ public class MainMVC {
 	//테이블 뷰
 	TableView<BookVO> tableView; // 검색결과
 	Parent logmvc;
+	MainMVC mainmvc;
 
 
 	public MainMVC(Scene scene, PointListMVC plmvc, BookReturn br, BookLoan bl, UserInformationMVC uimvc) {
@@ -129,15 +130,21 @@ public class MainMVC {
 		bloanBtn = new Button("대출하기");
 		bloanBtn.setPrefSize(100, 50);
 		bloanBtn.setOnAction( e -> {
-			// 다이어로그로 하기
+			// 다이어로그로 하기 -- 책(row)을 선택하고 대출하기 버튼을 누르면 대출이 완료되었습니다. 다이어로그 뜨기 
 			Dialog<String> dialog = new Dialog<String>();
 			dialog.setTitle("대출 성공");
 			ButtonType type = new ButtonType("뒤로가기", ButtonData.OK_DONE);
+			ButtonType ty= new ButtonType("대출현황", ButtonData.OK_DONE);
 			String str = "대출처리가 완료됐습니다";
 			dialog.setContentText(str);
 			dialog.getDialogPane().getButtonTypes().add(type);
+			dialog.getDialogPane().getButtonTypes().add(ty);
 			dialog.getDialogPane().setMinHeight(300);
 			dialog.showAndWait(); // 닫기할 때까지 기다리는 거
+			
+			//대출현황 버튼을 누르면 창이 넘어가는 거
+			
+			dialog.initOwner(primaryStage);
 			
 		});
 		
@@ -151,7 +158,7 @@ public class MainMVC {
 		uiBtn.setPrefSize(100 , 30);
 		uiBtn.setOnAction(e -> {
 			// 액션 이벤트 넣기
-			uimvc = new UserInformationMVC();
+			uimvc = new UserInformationMVC(scene, br, plmvc, bl, mainmvc, uimvc);
 			scene = new Scene(uimvc.getRoot(primaryStage));
 			primaryStage.setScene(scene);
 			
@@ -160,7 +167,7 @@ public class MainMVC {
 		bllBtn = new Button("대출현황");
 		bllBtn.setPrefSize(100, 30);
 		bllBtn.setOnAction( e -> {
-			bl = new BookLoan();
+			bl = new BookLoan(scene, br, bl, plmvc, uimvc, mainmvc);
 			scene.setRoot(logmvc);
 			primaryStage.setScene(scene);
 			
@@ -182,7 +189,7 @@ public class MainMVC {
 		breturnBtn.setPrefSize(100,30);
 		breturnBtn.setOnAction( e-> {
 			// 액션 이벤트 만들기
-			br = new BookReturn();
+			br = new BookReturn(scene, plmvc, uimvc, mainmvc, br, bl);
 			scene = new Scene(br.getRoot(primaryStage));
 			primaryStage.setScene(scene);
 			

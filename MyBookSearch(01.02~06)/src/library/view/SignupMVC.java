@@ -161,16 +161,6 @@ public class SignupMVC {
 
 		
 	}	
-	//팝업 만들기 회원가입완료되었습니다 하고 바로 로그인 (다이어로그 이용)
-//    public class popup {
-//    	public static void main(String[] args) {
-//			// 팝업 만들기
-//    		JOptionPane.showMessageDialog(null, "회원가입이 완료됐습니다.");
-//    		// 버튼을 넣어야하나 ? 
-//    		
-//		}
-//    }
-//	
-	
+
 	
 }

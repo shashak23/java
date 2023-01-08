@@ -27,14 +27,26 @@ public class BookLoan {
 	 Button mainhBtn; // 메인홈페이지 버튼 
 	 Scene scene = null;
 	 BookReturn br = null;
+	 BookLoan bl = null;
 	 PointListMVC plmvc = null;
 	 UserInformationMVC uimvc = null;
-	 MainMVC mmvc = null;
+	 MainMVC mainmvc = null;
 		 
-	public BookLoan() {
-		
+
+
+	public BookLoan(Scene scene, BookReturn br, BookLoan bl, PointListMVC plmvc, UserInformationMVC uimvc,
+			MainMVC mainmvc) {
+		super();
+		this.scene = scene;
+		this.br = br;
+		this.bl = bl;
+		this.plmvc = plmvc;
+		this.uimvc = uimvc;
+		this.mainmvc = mainmvc;
 	}
-	
+
+
+
 	public BorderPane getRoot(Stage primaryStage) {
 		// layout -- 전체판(900.500), 두 번째 판(main 글씨판), V box3판(아이디, 포인트, 반납내역, 메인홈페이지), 3번째판(대출조회 결과)
 		BorderPane root = new BorderPane();
@@ -64,7 +76,7 @@ public class BookLoan {
 		uiBtn = new Button("회원정보");
 		uiBtn.setPrefSize(100 , 30);
 		uiBtn.setOnAction( e-> {
-		     uimvc = new UserInformationMVC();
+		     uimvc = new UserInformationMVC(scene, br, plmvc, bl, mainmvc, uimvc);
 		     scene = new Scene(uimvc.getRoot(primaryStage));
 		     primaryStage.setScene(scene);
 		
@@ -82,7 +94,7 @@ public class BookLoan {
 		breturnBtn = new Button("반납내역");
 		breturnBtn.setPrefSize(100, 30);
 		breturnBtn.setOnAction( e-> {
-			br = new BookReturn();
+			br = new BookReturn(scene, plmvc, uimvc, mainmvc, br, bl);
 			scene = new Scene(br.getRoot(primaryStage));
 			primaryStage.setScene(scene);
 			
@@ -91,8 +103,8 @@ public class BookLoan {
 		mainhBtn = new Button("메인 홈페이지 이동");
 		mainhBtn.setPrefSize(150, 30);
 		mainhBtn.setOnAction( e-> {
-			mmvc = new MainMVC();
-			scene.setRoot(mmvc.getRoot(primaryStage));
+			mainmvc = new MainMVC(scene, plmvc, br, bl, uimvc);
+			scene.setRoot(mainmvc.getRoot(primaryStage));
 			primaryStage.setScene(scene);
 			
 		});
