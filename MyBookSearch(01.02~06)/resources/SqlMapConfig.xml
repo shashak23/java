@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org/DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+
+    <!-- 
+        properties는 하나만 설정 ; 연결정보
+        외부 파일을 이용해서 데이터베이스 접속 정보를 가져올거예요. (일반적인 방식)
+        외부 파일을 하나 만듦 ; driver.properties 파일
+     -->
+    <properties resource="./driver.properties"/>
+    
+    <!-- 
+        MyBatis에 대한 기본 setting 정보 ; MyBatis가 동작하는 기본적인 방식.
+     -->
+    <settings>
+       <setting name = "jdbcTypeForNull" value = "NULL"/>
+       <!-- Data가 없을 경우 NULL로 처리 -->
+    </settings>
+
+    <!-- 별명 지정 ; 타이핑 줄이기 위해서 사용 -->    
+    <typeAliases>
+        <typeAlias type="library.vo.BookVO" alias = "BookVO"/>
+    </typeAliases>
+    
+    <!-- database 연결 정보 선언 ; 각각 하나의 연결정보는 독립적인 데이터베이스 연결-->
+    <environments default="development"> <!-- 연결정보가 없을 때 기본값-->
+        <environment id="development">
+        <!-- 연결 환경에 대한 세부사항 -->
+        <transactionManager type="JDBC">
+        <!-- type이 JDBC면 수동으로 transaction 처리 ; commit(), rollback() 직접 입력 -->
+        <!-- type이 MANAGED면 자동으로 transaction 처리 ; container가 transaction 관리 -->
+        </transactionManager>
+        <dataSource type="POOLED">
+        <!-- Connection Pool을 사용할지 말지 결정
+             일반적으로 POOLED를 명시해서 connection pool사용
+         --> 
+         <!-- 실제 데이버베이스 연결 정보 -->
+             <property name="driver" value="${driver}"/>
+              <property name="url" value="${url}"/>
+               <property name="username" value="${user}"/>
+                <property name="password" value="${password}"/>
+         <!-- Database Connection Pool에 대한 설정 -->   
+        </dataSource>
+        </environment>
+    </environments>
+    <!-- mapping된 SQL 구문의 XML 파일에 대한 설정 -->
+    <mappers>
+        <mapper resource="./sqlmap/Book.xml"/>
+       
+    </mappers>
+</configuration>

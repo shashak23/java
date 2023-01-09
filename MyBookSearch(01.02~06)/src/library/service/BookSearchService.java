@@ -1,38 +1,28 @@
 package library.service;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.List;
 
-import javafx.collections.ObservableList;
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import library.dao.BookDAO;
-import library.dao.ConnectionPool;
 import library.vo.BookVO;
 
 
 public class BookSearchService {
 
-	public ObservableList<BookVO> selectBooksByKeyword(String text) {
-		Connection con = null;
+	public List<BookVO> selectBookByISBNBookVO(String isbn) {
 		
-		try {
-			con=(ConnectionPool.getDataSource()).getConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		BookDAO dao = new BookDAO(con);
-		
-		ObservableList<BookVO> list = dao.select(text);
-		
-		try {
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		 List<BookVO> list = null;
 
-		return list;
 		
+		    SqlSessionFactory factory = 
+		    		MyBatisConnectionFactory.getSqlSessionFactory();
+		    BookDAO dao = new BookDAO(factory); // dao한테 factory를 주입하기 
+			list = dao.selectBookByISBNBookVO(isbn); // list는 text를 selectOne해라
+			// 그리고 반환해라 
+	
+		return list;
+	
 	}
 
 }
