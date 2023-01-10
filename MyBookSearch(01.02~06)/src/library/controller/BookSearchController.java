@@ -9,17 +9,18 @@ import library.vo.BookVO;
 
 
 public class BookSearchController {
-	public ObservableList<BookVO> getResult(String isbn) {
+	public ObservableList<BookVO> getResult(String search) {
 		BookSearchService service = new BookSearchService();
 		
 		ObservableList<BookVO> list = FXCollections.observableArrayList();
-		List<BookVO> list_ = 
-				service.selectBookByISBNBookVO(isbn);
-		
-		for (BookVO book : list_) {
-			list.add(book);
-		}
-		return list;
+		ObservableList<BookVO> book = service.selectBookByBookVO(search);
+		//		List<BookVO> list_ = 
+//				service.selectBookByISBNBookVO(search);
+//		
+//		for (BookVO book : list) {
+//			list.add(book);
+//		}
+		return book;
 	}
 
 

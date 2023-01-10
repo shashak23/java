@@ -21,7 +21,7 @@ public class MyBatisConnectionFactory {
 				sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}

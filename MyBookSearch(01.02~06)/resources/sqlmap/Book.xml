@@ -3,11 +3,11 @@
 <mapper namespace="library.Book">
 <!-- dao에서 찾을 때 구분해주는 것 -->
 	<select id="selectBookByISBNBookVO" parameterType="String"
-		resultType="BookVO"> <!-- alias을 통해 특정 클래스를 지칭하기 -->
+		resultType="BookVO"> 
      <![CDATA[
-        SELECT bisbn, btitle, bauthor, bprice 
+        SELECT bisbn, btitle, bauthor, bpage, bdate, bprice 
         FROM book
-        WHERE bisbn = #{isbn}
+        WHERE btitle like %${btitle}% 
         ]]>
 	</select>
 </mapper>

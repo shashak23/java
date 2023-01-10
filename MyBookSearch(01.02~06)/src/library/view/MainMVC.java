@@ -107,7 +107,7 @@ public class MainMVC {
 			
 			ObservableList<BookVO> list = 
 					controller.getResult(searchtextField.getText());
-			
+					System.out.println(searchtextField.getText());
 			tableView.setItems(list);
 			
 			searchKeyword = searchtextField.getText();
@@ -146,7 +146,6 @@ public class MainMVC {
 			dialog.showAndWait(); // 닫기할 때까지 기다리는 거
 			
 			//대출현황 버튼을 누르면 창이 넘어가는 거
-			
 			dialog.initOwner(primaryStage);
 			
 		});

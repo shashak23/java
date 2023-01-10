@@ -60,13 +60,13 @@ public class BookLoan {
 		flowPane.setPrefSize(900, 400);
 		flowPane.setAlignment(Pos.CENTER);
 		// 대출현황 판
-		flowPane2.setPrefSize(500, 100);
+		flowPane2.setPrefSize(200, 100);
 		flowPane2.setAlignment(Pos.CENTER);
 		// 왼쪽 정렬 판
 		VBox3.setPrefSize(200, 250);
-		VBox3.setAlignment(Pos.CENTER);
-		// 대출조회 결과 넣을 판
-		flowPane4.setPrefSize(700, 100);
+
+		// 대출조회 결과 넣을 판 ???
+		flowPane4.setPrefSize(500, 100);
 		flowPane4.setAlignment(Pos.CENTER);
 		
 		// id text 넣기
@@ -122,10 +122,10 @@ public class BookLoan {
 		VBox3.setSpacing(10);
 		
 		//table view 넣기 
-		
 		root.setTop(flowPane2);
 		root.setLeft(VBox3);
 		root.setCenter(flowPane4);
+		root.setBottom(flowPane);
 		
 		return root;
 		

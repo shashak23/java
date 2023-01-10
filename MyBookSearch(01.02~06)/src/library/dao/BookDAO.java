@@ -5,28 +5,34 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import javafx.collections.ObservableList;
 import library.vo.BookVO;
 
 
 public class BookDAO {
 	
-	private SqlSessionFactory factory;
+	private SqlSession session;
 
-	public BookDAO(SqlSessionFactory factory) {
-		this.factory = factory;
+	public BookDAO(SqlSession session) {
+		this.session = session;
 		
 	}
 	// 뷰에서 컨트롤러가 나오고 컨트롤러에서 서비스로 가고 서비스에서 dao로 가는데
-	// 컨트롤러에 있는 getresult에다가 값응ㄹ 넣어주면 순차적으로 전달되는데
+	// 컨트롤러에 있는 get result에다가 값응 넣어주면 순차적으로 전달되는데
 	// view에 들어오는 값을 여기에 적어주는 것
-	public List<BookVO> selectBookByISBNBookVO(String isbn) {
+	public List<BookVO> selectBookByISBNBookVO(String text) {
 
 		List<BookVO> list = null;
 
-		SqlSession session = factory.openSession();
-
-		list = session.selectList("library.Book.selectBookByISBNBookVO", isbn);
-
+	
+System.out.println("이거 실행 되야 합니다");
+		List<Object> book = session.selectList("library.BookVO.selectBookByISBNBookVO", text);
+		System.out.println(book);
+		System.out.println(list);
+		session.close();
+		session.commit();
+//		con.close();
+//		con.commit();
 		return list;
 
 				
@@ -59,7 +65,7 @@ public class BookDAO {
 //
 //			rs.close();
 //			pstmt.close();
-//			
+//			 ㄱ
 //		} catch (SQLException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
@@ -68,4 +74,20 @@ public class BookDAO {
 //
 //		return list;
 	}
+	public ObservableList<BookVO> selectList(String text) {
+		List<BookVO> list = null;
+		ObservableList<BookVO> result=null;
+		
+		System.out.println("이거 실행 되야 합니다");
+				List<Object> book = session.selectList("library.BookVO.selectBookByISBNBookVO", text);
+				System.out.println(book);
+				System.out.println(list);
+//				session.close();
+//				session.commit();
+//				con.close();
+//				con.commit();
+				return result;
+	}
+
+
 }
